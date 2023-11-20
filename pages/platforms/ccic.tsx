@@ -7,9 +7,12 @@ export default function CCIC() {
         <NavBar />
         <div className="flex-1">
           <div className="flex flex-col h-full justify-center w-full p-5 rounded-lg">
-            <h1 className="text-2xl grid place-items-center font-bold">
-              The ccIC Platform page
-            </h1>
+            <div className="container max-w-screen-lg mx-auto">
+              <div className="text-xl font-vold mt-5 mb-3 text-center">
+                <h1>CCIC</h1>
+                <h2>https://goddino.tistory.com/154</h2>
+              </div>
+            </div>
           </div>
         </div>
       </div>

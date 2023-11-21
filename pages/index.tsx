@@ -38,7 +38,7 @@ const Login: React.FC = () => {
         handleMessage({ payload: error.message, type: "error" });
       } else {
         handleMessage({
-          payload: profiles.map((profile) => profile.full_name) + " successful!",  
+          payload: "Hi, " + profiles.map((profile) => profile.full_name) + "!! you log in successfully!",  
           type: "success",
         });
       }

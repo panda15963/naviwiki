@@ -14,6 +14,20 @@ export function useFormFields<T>(
     return [values, handleChange, resetFormFields];
 }
 
+export function useTextAreaFields<T>(
+    initialValues: T
+): [T, (event: React.ChangeEvent<HTMLTextAreaElement>) => void, () => void] {
+    const [values, setValues] = useState<T>(initialValues);
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        event.persist();
+        const { target } = event;
+        const { name, value } = target;
+        setValues({ ...values, [name]: value });
+    }
+    const resetFormFields = () => setValues(initialValues);
+    return [values, handleChange, resetFormFields];
+}
+
 export type MessageType = "default" | "success" | "error";
 
 export type MessageProps = {

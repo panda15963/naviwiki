@@ -27,7 +27,7 @@ const BoardDetails: React.FC = () => {
   // sign-up a user with provided details
   const register = async (payload: SupabaseboardPayload) => {
     try {
-      const { error } = await supabase.from("boards").insert(payload);
+      const { error } = await supabase.from(values.platforms).insert(payload);
       if (error) {
         console.log(error);
         handleMessage({ payload: error.message, type: "error" });
@@ -36,6 +36,9 @@ const BoardDetails: React.FC = () => {
           payload: "Signup successful!",
           type: "success",
         });
+      }
+      if (values.platforms == "CCIC") {
+        window.location.href = "../platforms/ccic";
       }
     } catch (error: unknown) {
       console.log(error);

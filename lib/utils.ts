@@ -1,8 +1,7 @@
 import { useState } from 'react'
-
 export function useFormFields<T>(
     initialValues: T
-): [T, (event: React.ChangeEvent<HTMLInputElement>) => void, () => void] {
+): [T, (event: React.ChangeEvent<HTMLInputElement>) => void, (event: React.ChangeEvent<HTMLTextAreaElement>) => void] {
     const [values, setValues] = useState<T>(initialValues);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.persist();
@@ -10,22 +9,13 @@ export function useFormFields<T>(
         const { name, value } = target;
         setValues({ ...values, [name]: value });
     }
-    const resetFormFields = () => setValues(initialValues);
-    return [values, handleChange, resetFormFields];
-}
-
-export function useTextAreaFields<T>(
-    initialValues: T
-): [T, (event: React.ChangeEvent<HTMLTextAreaElement>) => void, () => void] {
-    const [values, setValues] = useState<T>(initialValues);
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         event.persist();
         const { target } = event;
         const { name, value } = target;
         setValues({ ...values, [name]: value });
     }
-    const resetFormFields = () => setValues(initialValues);
-    return [values, handleChange, resetFormFields];
+    return [values, handleChange, handleChangeTextArea];
 }
 
 export type MessageType = "default" | "success" | "error";
@@ -40,5 +30,4 @@ export function useMessage<MessageProps>(initialValues: MessageProps): [MessageP
 
     const handleMessage = (mes: MessageProps) => setMessage(mes);
     return [message, handleMessage];
-
 }

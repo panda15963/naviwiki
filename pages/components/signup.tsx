@@ -30,7 +30,7 @@ const MESSAGE_VALUES: MessageProps = {
 
 const Signup: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [values, handleChange, resetFormFields] =
+  const [values, handleChange] =
     useFormFields<SignUpFieldProps>(FORM_VALUES);
 
   const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);
@@ -63,7 +63,6 @@ const Signup: React.FC = () => {
     event.preventDefault();
     if (values.email.substring(values.email.lastIndexOf("@")) === "@modim.co.kr" || values.email.substring(values.email.lastIndexOf("@")) === "@ict-companion.com") {
       await signUp(values);
-      resetFormFields();
     }
     else {
       handleMessage({ payload: "Please use your Modim or Hyundai Autoever email address", type: "error" });

@@ -1,7 +1,36 @@
 import { Button } from "@chakra-ui/react";
 import { NavBar } from "../components/NavBar";
 import Footer from "../components/footer";
-export default function CCIC() {
+import React, { useEffect, useState } from "react";
+import { supabase } from "../../lib/supabase";
+import { useFormFields, MessageProps, useMessage } from "../../lib/utils";
+
+const CCIC: React.FC = () => {
+  const loadData = async () => {
+    const { data, error } = await supabase.from("ccic").select("*");
+    if (error) {
+      console.log(error);
+    } else {
+      return data;
+    }
+  };
+  const [listing, setListing] = useState([]);
+  useEffect(() => {
+    loadData().then((data: any) => {
+      setListing(data);
+      data.map((item: any) => {
+        for(let i = 0; i < item.id; i++){
+          if (item.inserted_at.toString().includes("T") && item.inserted_at.toString().includes(".")){
+            item.inserted_at = item.inserted_at.toString().replace("T", " ");
+            item.inserted_at = item.inserted_at.toString().split(".")[i];
+            console.log(item.inserted_at);
+          }
+        }
+        
+      });
+    });
+  }, []);
+
   return (
     <>
       <div className="wrapper">
@@ -33,12 +62,28 @@ export default function CCIC() {
                           scope="col"
                           className="hover:bg-[rgba(0,0,0,0.2)] md:w-[200px]"
                         >
+                          Description
+                        </th>
+                        <th
+                          scope="col"
+                          className="hover:bg-[rgba(0,0,0,0.2)] md:w-[200px]"
+                        >
                           Create At
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      
+                      {listing.map((item: any) => (
+                        <tr
+                          key={item.id}
+                          className="bg-[rgba(0,0,0,0.1)] h-[45px] 2sm:h-[50px]"
+                        >
+                          <td className="text-center">{item.id + 1}</td>
+                          <td className="text-center">{item.title}</td>
+                          <td className="text-center">{item.description}</td>
+                          <td className="text-center">{item.inserted_at}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                   <Button
@@ -59,4 +104,5 @@ export default function CCIC() {
       </div>
     </>
   );
-}
+};
+export default CCIC;

@@ -1,9 +1,8 @@
-import { MessageProps, useFormFields, useMessage, useTextAreaFields } from "@/lib/utils";
+import { MessageProps, useFormFields, useMessage } from "@/lib/utils";
 import { NavBar } from "../components/NavBar";
 import Footer from "../components/footer";
 import classNames from "classnames";
 import { supabase } from "@/lib/supabase";
-import { Suspense } from "react";
 type boardFieldProps = {
   id: number;
   title: string;
@@ -22,10 +21,8 @@ const MESSAGE_VALUES: MessageProps = {
   payload: "",
 };
 const BoardDetails: React.FC = () => {
-  const [values, handleChange, resetFormFields] =
+  const [values, handleChange, handleChangeTextArea] =
     useFormFields<boardFieldProps>(FORM_VALUES);
-  const [textAreaValues, handleTextAreaChange, resetTextAreaFields] =
-    useTextAreaFields<boardFieldProps>(FORM_VALUES);
   const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);
   // register a user with provided details
   const register = async (payload: SupabaseboardPayload) => {
@@ -53,8 +50,7 @@ const BoardDetails: React.FC = () => {
   const handleSumbit = async (event: React.FormEvent) => {
     event.preventDefault();
     await register(values);
-    resetFormFields();
-    resetTextAreaFields();
+    values.id ++;
   };
   return (
     <>
@@ -91,13 +87,13 @@ const BoardDetails: React.FC = () => {
                       Platforms
                     </span>
                     <span className="p-1 text-sm text-center">
-                      Choose one of the following : "ccic", "ccnc", "ccic27", "stdw5", and "prm6"
+                      Choose one of the following : ccic, ccnc, ccic27, stdw5, and prm6
                     </span>
                     <input name="platforms" className="border-2  w-[400px]" type="text" value={values.platforms} onChange={handleChange}/>
                     <span className="p-1 text-xl font-bold text-center">
                       Description
                     </span>
-                    <textarea name="description" className="border-2 w-[400px] h-[400px]" value={textAreaValues.description} onChange={handleTextAreaChange} />
+                    <textarea name="description" className="border-2 w-[400px] h-[400px]" value={values.description} onChange={handleChangeTextArea} />
                     <div className="mt-5 flex items-center   justify-center">
                       <button className=" h-10 w-64 rounded-xl bg-gray-300 text-sm font-medium text-white">
                         Register

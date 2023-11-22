@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabase";
 import classNames from "classnames";
 import { useFormFields, MessageProps, useMessage } from "../lib/utils";
 import Link from "next/link";
+
 type SignInFieldProps = {
   full_name: string;
   email: string;
@@ -25,7 +26,7 @@ const MESSAGE_VALUES: MessageProps = {
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [values, handleChange, resetFormFields] = useFormFields<SignInFieldProps>(FORM_VALUES);
+  const [values, handleChange] = useFormFields<SignInFieldProps>(FORM_VALUES);
   const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);
   
   // sign-in a user with provided details
@@ -57,7 +58,6 @@ const Login: React.FC = () => {
   const handleSumbit = async (event: React.FormEvent) => {
     event.preventDefault();
     await signIn(values);
-    resetFormFields();
     setTimeout(() => {
       window.location.href = "/components/home";
     }, 1000);    

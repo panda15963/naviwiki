@@ -4,44 +4,55 @@ import { supabase } from "../lib/supabase";
 import classNames from "classnames";
 import { useFormFields, MessageProps, useMessage } from "../lib/utils";
 import Link from "next/link";
-
 type SignInFieldProps = {
   full_name: string;
   email: string;
   password: string;
 };
-
 type SupabaseSigninPayload = SignInFieldProps; // type alias
-
 const FORM_VALUES: SignInFieldProps = {
   full_name: "",
   email: "",
   password: "",
 };
-
 const MESSAGE_VALUES: MessageProps = {
   type: "default",
   payload: "",
 };
-
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [values, handleChange] = useFormFields<SignInFieldProps>(FORM_VALUES);
-  const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);
-  
+  const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);  
   // sign-in a user with provided details
   const signIn = async (payload: SupabaseSigninPayload) => {
     try {
       setLoading(true);
-      const { data:profiles, error } = await supabase.from("profiles").select("*").match({ email: payload.email, password: payload.password });
+      const { data:profiles, error } = await supabase.from("profiles").select("*").eq("email", payload.email);
       if (error) {
         console.log(error);
         handleMessage({ payload: error.message, type: "error" });
       } else {
-        handleMessage({
-          payload: "Hi, " + profiles.map((profile) => profile.full_name) + "!! you log in successfully!",  
-          type: "success",
-        });
+        if (profiles.length == 0) {
+          handleMessage({
+            payload: "Hi, " + payload.email + "!! you are not a member yet!",  
+            type: "error",
+          });
+          return;
+        }else{
+          if (profiles[0].password != payload.password) {
+            handleMessage({
+              payload: "Hi, " + payload.email + "!! your password is wrong!",  
+              type: "error",
+            });
+            return;
+          }else{
+            handleMessage({
+              payload: "Hi, " + payload.email + "!! you log in successfully!",  
+              type: "success",
+            });
+            window.location.href = "/components/home";
+          }
+        }
       }
     } catch (error) {
       console.log(error);
@@ -53,14 +64,10 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
-
   // Form submit handler to call the above function
   const handleSumbit = async (event: React.FormEvent) => {
     event.preventDefault();
     await signIn(values);
-    setTimeout(() => {
-      window.location.href = "/components/home";
-    }, 1000);    
   };
   return (
     <div className="container px-5 py-10 mx-auto w-2/3">

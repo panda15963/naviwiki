@@ -3,7 +3,6 @@ import { NavBar } from "../components/NavBar";
 import Footer from "../components/footer";
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
-import { useFormFields, MessageProps, useMessage } from "../../lib/utils";
 
 const CCIC: React.FC = () => {
   const loadData = async () => {
@@ -15,22 +14,18 @@ const CCIC: React.FC = () => {
     }
   };
   const [listing, setListing] = useState([]);
+  let id = 0;
   useEffect(() => {
     loadData().then((data: any) => {
       setListing(data);
-      data.map((item: any) => {
-        for(let i = 0; i < item.id; i++){
-          if (item.inserted_at.toString().includes("T") && item.inserted_at.toString().includes(".")){
-            item.inserted_at = item.inserted_at.toString().replace("T", " ");
-            item.inserted_at = item.inserted_at.toString().split(".")[i];
-            console.log(item.inserted_at);
-          }
-        }
-        
-      });
+      id = data.length;
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = id;
+        id++;
+      }
     });
-  }, []);
-
+  }, []); 
+  
   return (
     <>
       <div className="wrapper">
@@ -64,24 +59,18 @@ const CCIC: React.FC = () => {
                         >
                           Description
                         </th>
-                        <th
-                          scope="col"
-                          className="hover:bg-[rgba(0,0,0,0.2)] md:w-[200px]"
-                        >
-                          Create At
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
+                      
                       {listing.map((item: any) => (
                         <tr
                           key={item.id}
                           className="bg-[rgba(0,0,0,0.1)] h-[45px] 2sm:h-[50px]"
                         >
-                          <td className="text-center">{item.id + 1}</td>
+                          <td className="text-center">{item.id}</td>
                           <td className="text-center">{item.title}</td>
                           <td className="text-center">{item.description}</td>
-                          <td className="text-center">{item.inserted_at}</td>
                         </tr>
                       ))}
                     </tbody>

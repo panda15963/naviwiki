@@ -14,14 +14,13 @@ const CCIC: React.FC = () => {
     }
   };
   const [listing, setListing] = useState([]);
-  let id = 0;
+ 
   useEffect(() => {
     loadData().then((data: any) => {
       setListing(data);
-      id = data.length;
-      for (let i = 0; i < data.length; i++) {
-        data[i].id = id;
-        id++;
+      let id = data.length;
+      for (let i = 0; i < id; i++) {
+        data[i].id = id - (id - i) + 1;
       }
     });
   }, []); 

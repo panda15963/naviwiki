@@ -4,7 +4,7 @@
 ```bash
 npm install
 ```
-2.run the development server:
+2. run the development server:
 
 ```bash
 npm run dev

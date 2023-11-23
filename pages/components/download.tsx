@@ -16,63 +16,43 @@ export default function Download() {
       items: [
         {
           maintitle: "Python",
-          subtitle: "Main programming language",
-          link: "/components/download",
+          subtitle: "Main programming language with 3.11.2 version",
+          link: "https://www.python.org/ftp/python/3.11.2/python-3.11.2-amd64.exe",
         },
         {
           maintitle: "VSCode",
           subtitle: "Main IDE for programming",
-          link: "/components/boardDetails",
+          link: "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64",
         },
         {
           maintitle: "Source Tree",
-          subtitle: "Git GUI",
-          link: "/components/boardDetails",
+          subtitle: "Git GUI with 3.4.15 version",
+          link: "https://product-downloads.atlassian.com/software/sourcetree/windows/ga/SourceTreeSetup-3.4.15.exe",
         },
         {
           maintitle: "Notepad++",
-          subtitle: "Text editor",
-          link: "/components/boardDetails",
-        },
-        {
-          maintitle: "Microsoft Office",
-          subtitle: "Office suite",
-          link: "/components/boardDetails",
+          subtitle: "Text editor with 8.5.8 version",
+          link: "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5.8/npp.8.5.8.Installer.x64.exe",
         },
         {
           maintitle: "Bandizip",
           subtitle: "File archiver",  
-          link: "/components/boardDetails",
-        },
-        {
-          maintitle: "Git Bash",
-          subtitle: "Git CLI",  
-          link: "/components/boardDetails",
+          link: "https://kr.bandisoft.com/bandizip/dl.php?web",
         },
       ],
     },
     {
-      name: "Specific Programs for Platforms & RamdomAiming",
+      name: "Specific Programs for Platforms",
       items: [
         {
           maintitle: "WinSCP",
-          subtitle: "FTP client",
-          link: "/components/boardDetails",
+          subtitle: "FTP client with 6.1.2 version",
+          link: "https://winscp.net/download/WinSCP-6.1.2-Setup.exe",
         },
         {
           maintitle: "Putty",
-          subtitle: "SSH client",
-          link: "/components/boardDetails",
-        },
-        {
-          maintitle: "SatGen",
-          subtitle: "GPS simulator",
-          link: "/components/boardDetails",
-        },
-        {
-          maintitle: "Google Earth Pro",
-          subtitle: "Map viewer",
-          link: "/components/boardDetails",
+          subtitle: "SSH client with 0.79 version",
+          link: "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.79-installer.msi",
         },
       ],
     },
@@ -92,14 +72,14 @@ export default function Download() {
               <div className="space-y-10">
                 {menus.map((item, index) => (
                   <div key={index}>
-                    <div className="text-2xl font-semibold uppercase tracking-wider text-sky-500">
+                    <div className="text-2xl font-semibold uppercase tracking-wider text-amber-700">
                       {item.name}
                     </div>
                     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                       {item.items?.map((item, index) => (
                         <a
                           key={index}
-                          className="group block space-y-1.5 rounded-lg bg-amber-600 px-5 py-3 hover:bg-amber-500"
+                          className="group block space-y-1.5 rounded-lg bg-blue-500 px-5 py-3 hover:bg-sky-500"
                           href={item.link}
                         >
                           <div className="font-medium text-stone-900 group-hover:text-stone-100">

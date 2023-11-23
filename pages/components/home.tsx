@@ -20,10 +20,9 @@ export default function Home() {
           link: "/components/download",
         },
         {
-          maintitle: "Manual Guide",
-          subtitle:
-            "Descriptions page about the program. More details are in this page",
-          link: "/components/manualGuide",
+          maintitle: "Board",
+          subtitle: "Board for the community",
+          link: "/components/boardDetails",
         },
       ],
     },
@@ -83,7 +82,7 @@ export default function Home() {
                           className="group block space-y-1.5 rounded-lg bg-amber-600 px-5 py-3 hover:bg-amber-500"
                           href={item.link}
                         >
-                          <div className="font-medium text-stone-900 font-extrabold group-hover:text-stone-100">
+                          <div className="font-medium text-stone-900 group-hover:text-stone-100">
                             {item.maintitle}
                           </div>
                           <div className="text-sm text-stone-700 line-clamp-3 font-bold group-hover:text-gray-200">

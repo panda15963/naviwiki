@@ -36,14 +36,14 @@ export function NavBar() {
     {
       name: "General",
       items: [
-        { icon: BsFillHouseFill, link: <Link href="/">Home</Link> },
+        { icon: BsFillHouseFill, link: <Link href="/components/home">Home</Link> },
         {
           icon: BsDownload,
           link: <Link href="/components/download">Download</Link>,
         },
         {
           icon: RiGuideFill,
-          link: <Link href="/components/manualGuide">Manual Guide</Link>,
+          link: <Link href="/components/boardDetails">Board</Link>,
         },
       ],
     },

@@ -22,36 +22,30 @@ const MESSAGE_VALUES: MessageProps = {
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [values, handleChange] = useFormFields<SignInFieldProps>(FORM_VALUES);
-  const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);  
+  const [message, handleMessage] = useMessage<MessageProps>(MESSAGE_VALUES);
   // sign-in a user with provided details
   const signIn = async (payload: SupabaseSigninPayload) => {
     try {
       setLoading(true);
-      const { data:profiles, error } = await supabase.from("profiles").select("*").eq("email", payload.email);
+      const { data: profiles, error } = await supabase
+        .from("profiles")
+        .select("*")
       if (error) {
         console.log(error);
         handleMessage({ payload: error.message, type: "error" });
       } else {
         if (profiles.length == 0) {
           handleMessage({
-            payload: "Hi, " + payload.full_name + "!! you are not a member yet!",  
+            payload: "Hi, " + payload.email + "!! you are not a member yet!",
             type: "error",
           });
           return;
-        }else{
-          if (profiles[0].password != payload.password) {
-            handleMessage({
-              payload: "Hi, " + payload.full_name + "!! your password is wrong!",  
-              type: "error",
-            });
-            return;
-          }else{
-            handleMessage({
-              payload: "Hi, " + payload.full_name + "!! you log in successfully!",  
-              type: "success",
-            });
-            window.location.href = "/components/home";
-          }
+        } else {
+          handleMessage({
+            payload: "Hi, user!! you log in successfully!",
+            type: "success",
+          });
+          window.location.href = "/components/home";
         }
       }
     } catch (error) {

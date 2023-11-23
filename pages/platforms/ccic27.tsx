@@ -4,9 +4,9 @@ import Footer from "../components/footer";
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
-const CCIC: React.FC = () => {
+const CCIC27: React.FC = () => {
   const loadData = async () => {
-    const { data, error } = await supabase.from("ccic").select("*");
+    const { data, error } = await supabase.from("ccic27").select("*");
     if (error) {
       console.log(error);
     } else {
@@ -35,7 +35,7 @@ const CCIC: React.FC = () => {
               <div className="container max-w-screen-lg mx-auto">
                 <div className="text-xl font-bold mt-5 mb-3 text-center">
                   <h1 className="text-4xl font-bold mt-5 mb-3 text-center">
-                    CCIC
+                    CCIC27
                   </h1>
                   <table className="table-fixed w-full border-separate">
                     <thead>
@@ -81,7 +81,7 @@ const CCIC: React.FC = () => {
                               style={{ color: "red" }}
                               onClick={async () => {
                                 const { error } = await supabase
-                                  .from("ccic")
+                                  .from("CCIC27")
                                   .delete()
                                   .match({ title: item.title });
                                 if (error) {
@@ -89,7 +89,7 @@ const CCIC: React.FC = () => {
                                 } else {
                                   alert("Delete Success");
                                   window.location.href =
-                                    "../platforms/ccic";
+                                    "../platforms/ccic27";
                                 }
                               }}
                             >
@@ -119,4 +119,4 @@ const CCIC: React.FC = () => {
     </>
   );
 };
-export default CCIC;
+export default CCIC27;

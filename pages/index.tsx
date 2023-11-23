@@ -34,20 +34,20 @@ const Login: React.FC = () => {
       } else {
         if (profiles.length == 0) {
           handleMessage({
-            payload: "Hi, " + payload.email + "!! you are not a member yet!",  
+            payload: "Hi, " + payload.full_name + "!! you are not a member yet!",  
             type: "error",
           });
           return;
         }else{
           if (profiles[0].password != payload.password) {
             handleMessage({
-              payload: "Hi, " + payload.email + "!! your password is wrong!",  
+              payload: "Hi, " + payload.full_name + "!! your password is wrong!",  
               type: "error",
             });
             return;
           }else{
             handleMessage({
-              payload: "Hi, " + payload.email + "!! you log in successfully!",  
+              payload: "Hi, " + payload.full_name + "!! you log in successfully!",  
               type: "success",
             });
             window.location.href = "/components/home";

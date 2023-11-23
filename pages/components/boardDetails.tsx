@@ -3,15 +3,16 @@ import { NavBar } from "../components/NavBar";
 import Footer from "../components/footer";
 import classNames from "classnames";
 import { supabase } from "@/lib/supabase";
+import { v4 as uuid } from "uuid";
 type boardFieldProps = {
-  id: number;
+  id: string;
   title: string;
   platforms: string;
   description: string;
 };
 type SupabaseboardPayload = boardFieldProps; // type alias
 const FORM_VALUES: boardFieldProps = {
-  id: 0,
+  id: uuid(),
   title: "",
   platforms: "",
   description: "",
@@ -31,16 +32,19 @@ const BoardDetails: React.FC = () => {
       if (error) {
         console.log(error);
         handleMessage({ payload: error.message, type: "error" });
-      }
-      if (error) {
-        console.log(error);
-        handleMessage({ payload: error.message, type: "error" });
+        if (error.message === 'invalid input syntax for type integer: ""') {
+          handleMessage({
+            payload: "Please fill in all fields",
+            type: "error",
+          });
+          values.id = values.id + 1;
+        }
       } else {
         handleMessage({
-          payload:
-            "Board registered!",
+          payload: "Board registered successfully",
           type: "success",
         });
+        values.id = values.id + 1;
       }
     } catch (error: unknown) {
       console.log(error);
@@ -50,7 +54,6 @@ const BoardDetails: React.FC = () => {
   const handleSumbit = async (event: React.FormEvent) => {
     event.preventDefault();
     await register(values);
-    values.id ++;
   };
   return (
     <>
@@ -69,8 +72,8 @@ const BoardDetails: React.FC = () => {
                           message.type === "error"
                             ? "bg-red-500 text-white"
                             : message.type === "success"
-                              ? "bg-green-300 text-gray-800"
-                              : "bg-gray-100 text-gray-800"
+                            ? "bg-green-300 text-gray-800"
+                            : "bg-gray-100 text-gray-800"
                         )}
                       >
                         {message?.payload}
@@ -82,20 +85,44 @@ const BoardDetails: React.FC = () => {
                     <span className="p-1 text-xl font-bold text-center">
                       Title
                     </span>
-                    <input name="title" className="border-2  w-[400px]" type="text" value={values.title} onChange={handleChange}/>
+                    <input
+                      name="title"
+                      className="border-2  w-[400px]"
+                      type="text"
+                      value={values.title}
+                      onChange={handleChange}
+                    />
                     <span className="p-1 text-xl font-bold text-center">
                       Platforms
                     </span>
                     <span className="p-1 text-sm text-center">
-                      Choose one of the following : ccic, ccnc, ccic27, stdw5, and prm6
+                      Choose one of the following : ccic, ccnc, ccic27, stdw5,
+                      and prm6
                     </span>
-                    <input name="platforms" className="border-2  w-[400px]" type="text" value={values.platforms} onChange={handleChange}/>
+                    <input
+                      name="platforms"
+                      className="border-2  w-[400px]"
+                      type="text"
+                      value={values.platforms}
+                      onChange={handleChange}
+                    />
                     <span className="p-1 text-xl font-bold text-center">
                       Description
                     </span>
-                    <textarea name="description" className="border-2 w-[400px] h-[400px]" value={values.description} onChange={handleChangeTextArea} />
+                    <textarea
+                      name="description"
+                      className="border-2 w-[400px] h-[400px]"
+                      value={values.description}
+                      onChange={handleChangeTextArea}
+                    />
                     <div className="mt-5 flex items-center   justify-center">
-                      <button className=" h-10 w-64 rounded-xl bg-gray-300 text-sm font-medium text-white">
+                      <button
+                        className=" h-10 w-64 rounded-xl bg-gray-300 text-sm font-medium text-white"
+                        onClick={() => {
+                          window.location.href =
+                            "/platforms/" + values.platforms;
+                        }}
+                      >
                         Register
                       </button>
                     </div>

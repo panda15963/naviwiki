@@ -30,7 +30,8 @@ create table profiles (
   password text,
   updated_at timestamp with time zone
 );
--------------------------------------------------------
+```
+```sql
 create table
   public.std5w (
     id uuid not null primary key,
@@ -39,8 +40,9 @@ create table
     description text null,
     updated_at timestamp null
   ) tablespace pg_default;
-  -------------------------------------------------------
-  create table
+```
+```sql
+create table
   public.prm6 (
     id uuid not null primary key,
     title text null,
@@ -48,8 +50,9 @@ create table
     description text null,
     updated_at timestamp null
   ) tablespace pg_default;
-  -------------------------------------------------------
-  create table
+```
+```sql
+create table
   public.ccic (
     id uuid not null primary key,
     title text null,
@@ -57,8 +60,9 @@ create table
     description text null,
     updated_at timestamp null
   ) tablespace pg_default;
-  -------------------------------------------------------
-  create table
+```
+```sql
+create table
   public.ccnc (
     id uuid not null primary key,
     title text null,
@@ -66,7 +70,8 @@ create table
     description text null,
     updated_at timestamp null
   ) tablespace pg_default;
-  -------------------------------------------------------
+```
+```sql
 create table
   public.ccic27 (
     id uuid not null primary key,

@@ -1,12 +1,6 @@
 import { NavBar } from "./NavBar";
 import styles from "../../styles/index.module.scss";
 import Footer from "./footer";
-type userFieldProps = {
-  email: string;
-  password: string;
-};
-
-type SupabaseuserPayload = userFieldProps; // type alias
 export default function Home() {
   type MainMenu = {
     name?: string;

@@ -66,8 +66,7 @@ const PRM6: React.FC = () => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      
+                    <tbody>                      
                       {listing.map((item: any) => (
                         <tr
                           key={item.id}

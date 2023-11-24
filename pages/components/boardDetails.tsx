@@ -79,7 +79,7 @@ const BoardDetails: React.FC = () => {
                         {message?.payload}
                       </div>
                     )}
-                    <div className=" p-10 text-2xl font-bold text-center">
+                    <div className=" p-5 text-2xl font-bold text-center">
                       <span>Write On Board</span>
                     </div>
                     <span className="p-1 text-xl font-bold text-center">

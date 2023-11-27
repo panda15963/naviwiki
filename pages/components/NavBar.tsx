@@ -36,7 +36,10 @@ export function NavBar() {
     {
       name: "General",
       items: [
-        { icon: BsFillHouseFill, link: <Link href="/components/home">Home</Link> },
+        {
+          icon: BsFillHouseFill,
+          link: <Link href="/components/home">Home</Link>,
+        },
         {
           icon: BsDownload,
           link: <Link href="/components/download">Download</Link>,
@@ -119,19 +122,14 @@ export function NavBar() {
                 ))}
               </div>
             ))}
-          </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
             <CiLogout
-              className="text-2xl cursor-pointer block float-left mr-2"
+              className="text-3xl float-left mr-2 mx-1 cursor-pointer text-blue-700"
               onClick={SignOut}
-            />
-            <Link className="cursor-pointer block float-right mr-2" href="/">
-              Logout
-            </Link>
-          </button>
+            />            
+            <Link className={`flex items-center mb-2 ml-4 text-m font-bold text-orange-500 px-5 ${!open && "hidden"}`} href="/">
+                LogOut
+              </Link>
+          </div>
         </div>
       </div>
     </>
